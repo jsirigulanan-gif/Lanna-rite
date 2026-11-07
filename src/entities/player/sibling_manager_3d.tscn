@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://csiblingmgr3d001"]
+
+[ext_resource type="Script" path="res://src/entities/player/sibling_manager_3d.gd" id="1_mgr"]
+[ext_resource type="PackedScene" path="res://src/entities/player/player_sibling_3d.tscn" id="2_sibling"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sister_body"]
+albedo_color = Color(0.55, 0.22, 0.28, 1)
+roughness = 0.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sister"]
+material = SubResource("StandardMaterial3D_sister_body")
+radius = 0.32
+height = 1.2
+
+[node name="SiblingManager3D" type="Node3D"]
+script = ExtResource("1_mgr")
+
+[node name="Brother" parent="." instance=ExtResource("2_sibling")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+character_name = "พี่ชาย (กล้า)"
+walk_speed = 3.4
+run_speed = 6.2
+
+[node name="LanternLight3D" parent="Brother" index="2"]
+visible = false
+
+[node name="Sister" parent="." instance=ExtResource("2_sibling")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0.5)
+sibling_role = 1
+character_name = "น้องสาว (พิมพ์)"
+walk_speed = 3.0
+run_speed = 5.4
+
+[node name="BodyMesh" parent="Sister/Visual" index="0"]
+mesh = SubResource("CapsuleMesh_sister")
+
+[editable path="Brother"]
+[editable path="Sister"]

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://chiding3d001"]
+
+[ext_resource type="Script" path="res://src/environment/hiding_spot_3d.gd" id="1_hiding"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trigger"]
+size = Vector3(1.6, 2.2, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cabinet"]
+albedo_color = Color(0.28, 0.16, 0.09, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_cabinet"]
+material = SubResource("StandardMaterial3D_cabinet")
+size = Vector3(1.0, 2.0, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.35, 0.20, 0.12, 1)
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_door"]
+material = SubResource("StandardMaterial3D_door")
+size = Vector3(0.9, 1.9, 0.06)
+
+[node name="HidingSpot3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_hiding")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("BoxShape3D_trigger")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="CabinetBody" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+mesh = SubResource("BoxMesh_cabinet")
+
+[node name="LockerDoorMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.422618, 0, 0.906308, 0, 1, 0, -0.906308, 0, 0.422618, 0.45, 1.0, 0.35)
+mesh = SubResource("BoxMesh_door")
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+billboard = 1
+text = "[E] ซ่อนตัวในตู้ไม้"
+font_size = 28
+outline_size = 8

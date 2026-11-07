@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://cmedicine002"]
+
+[ext_resource type="Script" path="res://src/items/item_data.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = "herbal_medicine"
+item_name = "ยาต้มสมุนไพร"
+description = "ยาต้มแก้ฟกช้ำและขับไล่ไอวิญญาณ ฟื้นฟูพลังชีวิต 35 หน่วย"
+item_type = 0
+heal_amount = 35
+fuel_amount = 0.0
+icon_color = Color(0.25, 0.8, 0.45, 1)
+max_stack = 1

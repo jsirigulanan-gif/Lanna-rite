@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cschooldesk3d001"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_desk_col"]
+size = Vector3(1.1, 0.85, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.32, 0.2, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_top"]
+material = SubResource("StandardMaterial3D_wood")
+size = Vector3(1.0, 0.06, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_legs"]
+material = SubResource("StandardMaterial3D_wood")
+size = Vector3(0.06, 0.75, 0.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bench"]
+material = SubResource("StandardMaterial3D_wood")
+size = Vector3(1.0, 0.05, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_book"]
+albedo_color = Color(0.85, 0.8, 0.7, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_book"]
+material = SubResource("StandardMaterial3D_book")
+size = Vector3(0.24, 0.03, 0.3)
+
+[node name="SchoolDesk3D" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+shape = SubResource("BoxShape3D_desk_col")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Desktop" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.15)
+mesh = SubResource("BoxMesh_top")
+
+[node name="LegFL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, 0.38, -0.36)
+mesh = SubResource("BoxMesh_legs")
+
+[node name="LegFR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44, 0.38, -0.36)
+mesh = SubResource("BoxMesh_legs")
+
+[node name="LegBL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, 0.38, 0.06)
+mesh = SubResource("BoxMesh_legs")
+
+[node name="LegBR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44, 0.38, 0.06)
+mesh = SubResource("BoxMesh_legs")
+
+[node name="Bench" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.28)
+mesh = SubResource("BoxMesh_bench")
+
+[node name="Notebook" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.15, 0.79, -0.15)
+mesh = SubResource("BoxMesh_book")

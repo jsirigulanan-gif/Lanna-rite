@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://caltarshrine3d001"]
+
+[ext_resource type="Script" path="res://src/environment/altar_shrine_3d.gd" id="1_altar"]
+[ext_resource type="PackedScene" uid="uid://cemberparticles3d001" path="res://src/environment/props/ember_particles_3d.tscn" id="2_ember"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trigger"]
+radius = 2.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stone"]
+albedo_color = Color(0.22, 0.22, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pedestal"]
+material = SubResource("StandardMaterial3D_stone")
+top_radius = 0.9
+bottom_radius = 1.1
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fire"]
+albedo_color = Color(1, 0.45, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.35, 0.05, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_flame"]
+material = SubResource("StandardMaterial3D_fire")
+size = Vector3(0.4, 0.6, 0.4)
+
+[node name="AltarShrine3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_altar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CylinderShape3D_trigger")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="PedestalMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("CylinderMesh_pedestal")
+
+[node name="FlameMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+mesh = SubResource("PrismMesh_flame")
+
+[node name="FlameLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.5, 0.2, 1)
+light_energy = 2.2
+shadow_enabled = true
+omni_range = 8.0
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+billboard = 1
+text = "[E] ดับไฟพิธีกรรม"
+font_size = 28
+outline_size = 8
+
+[node name="EmberParticles3D" parent="." instance=ExtResource("2_ember")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)

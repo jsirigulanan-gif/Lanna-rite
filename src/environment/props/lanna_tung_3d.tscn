@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://clannatung3d001"]
+
+[ext_resource type="Script" path="res://src/environment/props/lanna_tung_3d.gd" id="1_tung"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bamboo"]
+albedo_color = Color(0.55, 0.42, 0.25, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pole"]
+material = SubResource("StandardMaterial3D_bamboo")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_red_silk"]
+albedo_color = Color(0.72, 0.15, 0.12, 1)
+roughness = 0.5
+cull_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_banner"]
+material = SubResource("StandardMaterial3D_red_silk")
+size = Vector3(0.55, 1.8, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gold"]
+albedo_color = Color(0.9, 0.75, 0.25, 1)
+emission_enabled = true
+emission = Color(0.9, 0.7, 0.2, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_stripe"]
+material = SubResource("StandardMaterial3D_gold")
+size = Vector3(0.57, 0.15, 0.03)
+
+[sub_resource type="PrismMesh" id="PrismMesh_tassel"]
+material = SubResource("StandardMaterial3D_gold")
+size = Vector3(0.35, 0.4, 0.02)
+
+[node name="LannaTung3D" type="Node3D"]
+script = ExtResource("1_tung")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="HangingPole" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+mesh = SubResource("CylinderMesh_pole")
+
+[node name="BannerCloth" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+mesh = SubResource("BoxMesh_banner")
+
+[node name="GoldStripe1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+mesh = SubResource("BoxMesh_stripe")
+
+[node name="GoldStripe2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0)
+mesh = SubResource("BoxMesh_stripe")
+
+[node name="BottomTassel" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -1.95, 0)
+mesh = SubResource("PrismMesh_tassel")

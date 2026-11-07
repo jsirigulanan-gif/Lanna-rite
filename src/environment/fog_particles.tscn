@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://h32by60lfusu"]
+
+[sub_resource type="Gradient" id="Gradient_fog"]
+colors = PackedColorArray(1, 1, 1, 0, 0.7, 0.75, 0.85, 0.18)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fog"]
+gradient = SubResource("Gradient_fog")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="FogParticles" type="CPUParticles2D"]
+amount = 24
+lifetime = 6.0
+preprocess = 3.0
+texture = SubResource("GradientTexture2D_fog")
+emission_shape = 3
+emission_rect_extents = Vector2(400, 100)
+direction = Vector2(1, 0.1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 18.0
+scale_amount_min = 1.5
+scale_amount_max = 3.2
+color = Color(0.7, 0.75, 0.85, 0.6)

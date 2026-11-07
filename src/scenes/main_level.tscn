@@ -1,0 +1,246 @@
+[gd_scene format=3 uid="uid://cmain007level"]
+
+[ext_resource type="Script" uid="uid://f44uke6f02tt" path="res://src/scenes/main_level.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://bhcgje721crc7" path="res://src/entities/player/sibling_manager.tscn" id="2_sibling_mgr"]
+[ext_resource type="PackedScene" uid="uid://cspirit002ai" path="res://src/entities/enemies/spirit_ai.tscn" id="3_spirit"]
+[ext_resource type="PackedScene" uid="uid://b2lygej8fx3bb" path="res://src/environment/hiding_spot.tscn" id="4_hiding"]
+[ext_resource type="PackedScene" uid="uid://cd55k8mytb6jh" path="res://src/environment/locked_door.tscn" id="5_door"]
+[ext_resource type="PackedScene" uid="uid://y3qh3re18h7s" path="res://src/environment/altar_shrine.tscn" id="6_altar"]
+[ext_resource type="PackedScene" uid="uid://dnintx72ii7wf" path="res://src/items/sai_sin_barrier.tscn" id="7_barrier"]
+[ext_resource type="PackedScene" uid="uid://cworld003item" path="res://src/items/world_item.tscn" id="8_world_item"]
+[ext_resource type="Resource" uid="uid://coilflask001" path="res://src/items/oil_flask.tres" id="9_oil"]
+[ext_resource type="Resource" uid="uid://cmedicine002" path="res://src/items/herbal_medicine.tres" id="10_med"]
+[ext_resource type="Script" uid="uid://ccfo61grv8ufb" path="res://src/core/game_manager.gd" id="11_gm"]
+[ext_resource type="PackedScene" uid="uid://7wjuapfj5336" path="res://src/ui/inventory/inventory_grid.tscn" id="12_inv"]
+[ext_resource type="PackedScene" uid="uid://ctob1rv6gkqwk" path="res://src/puzzles/tung_puzzle.tscn" id="13_puzzle"]
+[ext_resource type="PackedScene" uid="uid://dp4yo3hcg7uev" path="res://src/ui/screens/game_over_screen.tscn" id="14_gameover"]
+[ext_resource type="PackedScene" uid="uid://bfvgdm6qv1pfh" path="res://src/ui/screens/victory_screen.tscn" id="15_victory"]
+[ext_resource type="PackedScene" uid="uid://cfixed001cam" path="res://src/camera/fixed_camera_zone.tscn" id="16_cam_zone"]
+[ext_resource type="Shader" uid="uid://v5m5h6msl0t6" path="res://src/shaders/cinematic_horror.gdshader" id="17_shader"]
+[ext_resource type="PackedScene" uid="uid://c1mvwxf6tdwgu" path="res://src/environment/lore_document.tscn" id="18_loredoc"]
+[ext_resource type="PackedScene" uid="uid://f3llsmotxbkn" path="res://src/ui/screens/document_reader.tscn" id="19_docreader"]
+[ext_resource type="Script" uid="uid://dr3a8se82vqhd" path="res://src/audio/audio_manager.gd" id="20_audio"]
+[ext_resource type="PackedScene" uid="uid://clannatung001" path="res://src/environment/lanna_tung_banner.tscn" id="21_tung_banner"]
+[ext_resource type="PackedScene" uid="uid://h32by60lfusu" path="res://src/environment/fog_particles.tscn" id="22_fog"]
+[ext_resource type="PackedScene" uid="uid://bgy3es1v15g7f" path="res://src/ui/screens/pause_menu.tscn" id="23_pause"]
+[ext_resource type="PackedScene" uid="uid://cstatushud001" path="res://src/ui/hud/status_hud.tscn" id="24_hud"]
+[ext_resource type="PackedScene" uid="uid://cmapscreen001" path="res://src/ui/screens/map_screen.tscn" id="25_map"]
+[ext_resource type="PackedScene" uid="uid://8v8s8jx7xrc7" path="res://src/environment/save_shrine.tscn" id="26_saveshrine"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(850, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_escape"]
+size = Vector2(36, 120)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cinematic"]
+shader = ExtResource("17_shader")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.8
+shader_parameter/grain_amount = 0.03
+shader_parameter/tint_color = Color(0.9, 0.95, 1.05, 1)
+
+[node name="MainLevel" type="Node2D" unique_id=1039051195]
+script = ExtResource("1_main")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=812559984]
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="Environment" type="Node2D" parent="." unique_id=1251987250]
+
+[node name="SchoolFloor" type="ColorRect" parent="Environment" unique_id=1406507982]
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0.24, 0.18, 0.14, 1)
+
+[node name="CourtyardFloor" type="ColorRect" parent="Environment" unique_id=1704452641]
+offset_left = 320.0
+offset_right = 800.0
+offset_bottom = 240.0
+color = Color(0.14, 0.18, 0.15, 1)
+
+[node name="Walls" type="StaticBody2D" parent="Environment" unique_id=1273726255]
+collision_mask = 6
+
+[node name="TopWall" type="CollisionShape2D" parent="Environment/Walls" unique_id=1974976421]
+position = Vector2(400, -10)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Environment/Walls" unique_id=1233523820]
+position = Vector2(400, 250)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LockedDoor" parent="Environment" unique_id=2007150419 instance=ExtResource("5_door")]
+position = Vector2(320, 120)
+
+[node name="AltarShrine" parent="Environment" unique_id=97064721 instance=ExtResource("6_altar")]
+position = Vector2(540, 120)
+
+[node name="SaveShrine" parent="Environment" unique_id=1308226820 instance=ExtResource("26_saveshrine")]
+position = Vector2(40, 50)
+
+[node name="HidingSpot" parent="Environment" unique_id=30667656 instance=ExtResource("4_hiding")]
+position = Vector2(80, 50)
+
+[node name="SaiSinBarrier" parent="Environment" unique_id=1507368563 instance=ExtResource("7_barrier")]
+position = Vector2(250, 120)
+
+[node name="OilItem" parent="Environment" unique_id=565440862 instance=ExtResource("8_world_item")]
+position = Vector2(160, 60)
+item_data = ExtResource("9_oil")
+
+[node name="MedicineItem" parent="Environment" unique_id=492938481 instance=ExtResource("8_world_item")]
+position = Vector2(160, 180)
+item_data = ExtResource("10_med")
+
+[node name="TeacherDiaryDoc" parent="Environment" unique_id=1875784874 instance=ExtResource("18_loredoc")]
+position = Vector2(110, 80)
+document_title = "บันทึกครูเวร (14 พ.ย.)"
+document_content = "วันที่ 14 พฤศจิกายน...
+หลังจากเสียงระฆังเลิกเรียน หมอกควันประหลาดเริ่มลอยลงมาจากยอดดอย ผู้ใหญ่ในหมู่บ้านต่างพากันปิดประตูเรือนเงียบกริบ ฉันได้ยินเสียงสวดมนต์ภาษากลางเมืองล้านนาโบราณแว่วมาจากลานศาลผีปู่ย่า...
+
+เด็กนักเรียนหญิง ม.2 คนนั้น... พวกเขาจ้องจะนำตัวเธอไปเป็นเครื่องสังเวยคืนนี้!
+หากใครอ่านบันทึกนี้อยู่ จงจำไว้:
+อย่าวิ่งในที่มืด เสียงฝีเท้าและแสงไฟจะล่อผีกะให้ตามมา
+ถ้าหนีไม่ทัน จงมุดเข้าตู้ไม้ หรือผูกสายสิญจน์ขวางประตูไว้..."
+
+[node name="TungManuscriptDoc" parent="Environment" unique_id=714554348 instance=ExtResource("18_loredoc")]
+position = Vector2(280, 70)
+document_title = "คัมภีร์ใบลานปริศนาตุง"
+document_content = "ตำรับผูกอาคมตุงสี่ทิศแห่งลานศาลผี:
+
+'ตุงแรกหันเบิกรับลมหนาวสู่ทิศเหนือ (เปิ้น) ดับสิ้นสิ่งอัปมงคล
+ตุงสองทอดลงคุ้มภัยสู่ทิศใต้ (ก้ำ) คุ้มครองเรือนกาย
+ตุงสามเปิดรับแสงแรกแห่งทิศบูรพา (วันออก) ส่องสว่างทางรอด
+ตุงสี่กักขังวิญญาณร้ายสู่ทิศประจิม (วันตก) ปิดตายแดนผี'
+
+เมื่อลำดับต้องตามตำรา กลอนอาคมที่ประตูจักคลายออกสู่ลานพิธี..."
+
+[node name="FogParticles" parent="Environment" unique_id=542003136 instance=ExtResource("22_fog")]
+position = Vector2(400, 150)
+
+[node name="TungBanner_Hallway" parent="Environment" unique_id=952409764 instance=ExtResource("21_tung_banner")]
+position = Vector2(180, 10)
+banner_color = Color(0.85, 0.25, 0.22, 0.95)
+
+[node name="TungBanner_Door" parent="Environment" unique_id=302146086 instance=ExtResource("21_tung_banner")]
+position = Vector2(300, 10)
+banner_color = Color(0.95, 0.8, 0.3, 0.95)
+
+[node name="TungBanner_AltarLeft" parent="Environment" unique_id=1856464390 instance=ExtResource("21_tung_banner")]
+position = Vector2(490, 15)
+banner_color = Color(0.25, 0.35, 0.75, 0.95)
+
+[node name="TungBanner_AltarRight" parent="Environment" unique_id=1785070687 instance=ExtResource("21_tung_banner")]
+position = Vector2(590, 15)
+banner_color = Color(0.85, 0.25, 0.22, 0.95)
+
+[node name="EscapeGate" type="Area2D" parent="Environment" unique_id=287876027]
+position = Vector2(780, 120)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/EscapeGate" unique_id=1962354467]
+shape = SubResource("RectangleShape2D_escape")
+
+[node name="Visual" type="ColorRect" parent="Environment/EscapeGate" unique_id=1760110603]
+offset_left = -10.0
+offset_top = -60.0
+offset_right = 10.0
+offset_bottom = 60.0
+color = Color(0.5, 0.4, 0.25, 1)
+
+[node name="PromptLabel" type="Label" parent="Environment/EscapeGate" unique_id=2068903076]
+offset_left = -120.0
+offset_top = -80.0
+offset_right = 120.0
+offset_bottom = -55.0
+theme_override_font_sizes/font_size = 11
+text = "ประตูรั้วหมู่บ้าน"
+horizontal_alignment = 1
+
+[node name="SiblingManager" parent="." unique_id=240569470 instance=ExtResource("2_sibling_mgr")]
+position = Vector2(60, 120)
+
+[node name="SpiritAI" parent="." unique_id=1807183327 instance=ExtResource("3_spirit")]
+position = Vector2(440, 100)
+patrol_points = Array[Vector2]([Vector2(440, 60), Vector2(600, 60), Vector2(600, 180), Vector2(440, 180)])
+
+[node name="GameManager" type="Node" parent="." unique_id=630297177]
+script = ExtResource("11_gm")
+
+[node name="AudioManager" type="Node" parent="." unique_id=346118400]
+script = ExtResource("20_audio")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1145165824]
+
+[node name="CinematicOverlay" type="ColorRect" parent="UI" unique_id=85295264]
+material = SubResource("ShaderMaterial_cinematic")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HUD" type="Control" parent="UI" unique_id=1170144828]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HelpBanner" type="Label" parent="UI/HUD" unique_id=574170348]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_font_sizes/font_size = 12
+text = "[WASD] เดิน  |  [Shift] วิ่ง  |  [Tab] สลับพี่น้อง  |  [I] กระเป๋า  |  [M] แผนที่  |  [E] สำรวจ  |  [ESC] เมนู"
+horizontal_alignment = 1
+
+[node name="InventoryGrid" parent="UI" unique_id=1257872934 instance=ExtResource("12_inv")]
+offset_top = 5.0
+offset_bottom = 5.0
+
+[node name="TungPuzzle" parent="UI" unique_id=1925921655 instance=ExtResource("13_puzzle")]
+offset_left = 122.0
+offset_top = 33.0
+offset_right = 122.0
+offset_bottom = 33.0
+
+[node name="StatusHUD" parent="UI" unique_id=1948127084 instance=ExtResource("24_hud")]
+
+[node name="DocumentReader" parent="UI" unique_id=372691142 instance=ExtResource("19_docreader")]
+
+[node name="MapScreen" parent="UI" unique_id=673069301 instance=ExtResource("25_map")]
+
+[node name="PauseMenu" parent="UI" unique_id=855448903 instance=ExtResource("23_pause")]
+
+[node name="GameOverScreen" parent="." unique_id=1963700859 instance=ExtResource("14_gameover")]
+
+[node name="VictoryScreen" parent="." unique_id=266103980 instance=ExtResource("15_victory")]
+
+[node name="Cameras" type="Node2D" parent="." unique_id=1139812537]
+
+[node name="CamZone_1_Entrance" parent="Cameras" unique_id=260428907 instance=ExtResource("16_cam_zone")]
+position = Vector2(830, 405)
+zone_name = "โถงทางเดินเรือนไม้"
+is_initial_camera = true
+
+[node name="CamZone_2_Corridor" parent="Cameras" unique_id=1848066087 instance=ExtResource("16_cam_zone")]
+position = Vector2(165, 46)
+zone_name = "ทางเดินหน้าประตูล็อกอาคม"
+
+[node name="CamZone_3_Altar" parent="Cameras" unique_id=1739895207 instance=ExtResource("16_cam_zone")]
+position = Vector2(490, 120)
+zone_name = "ลานศาลผีปู่ย่า"
+
+[node name="CamZone_4_Gate" parent="Cameras" unique_id=1816588512 instance=ExtResource("16_cam_zone")]
+position = Vector2(710, 120)
+zone_name = "ประตูรั้วหมู่บ้าน"

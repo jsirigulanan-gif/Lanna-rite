@@ -1,0 +1,145 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctung004puzzle"]
+
+[ext_resource type="Script" path="res://src/puzzles/tung_puzzle.gd" id="1_tung_puzzle"]
+
+[node name="TungPuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tung_puzzle")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -180.0
+offset_right = 220.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "ปริศนารหัสตุงล้านนา (กลอนประตูศาลผี)"
+horizontal_alignment = 1
+
+[node name="LoreLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 46.0
+offset_right = -24.0
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "คำใบ้คัมภีร์ใบลาน: \"ตุงแรกหันเบิกรับลมหนาวสู่เหนือ, ตุงสองทอดลงใต้คุ้มภัย, ตุงสามเปิดแสงแรกแห่งบูรพา (ออก), ตุงสี่กักวิญญาณแห่งประจิม (ตก)\""
+autowrap_mode = 2
+
+[node name="SequenceDisplay" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 115.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 13
+text = "ลำดับที่เลือก: [ ยังไม่ได้เลือก ]"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 145.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "โปรดระบุลำดับทิศทางของตุงอาคม"
+horizontal_alignment = 1
+
+[node name="ButtonGrid" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 160.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="NorthButton" type="Button" parent="Panel/ButtonGrid"]
+custom_minimum_size = Vector2(150, 42)
+layout_mode = 2
+text = "⬆ ทิศเหนือ (เปิ้น)"
+
+[node name="SouthButton" type="Button" parent="Panel/ButtonGrid"]
+custom_minimum_size = Vector2(150, 42)
+layout_mode = 2
+text = "⬇ ทิศใต้ (ก้ำ)"
+
+[node name="EastButton" type="Button" parent="Panel/ButtonGrid"]
+custom_minimum_size = Vector2(150, 42)
+layout_mode = 2
+text = "➡ ทิศตะวันออก"
+
+[node name="WestButton" type="Button" parent="Panel/ButtonGrid"]
+custom_minimum_size = Vector2(150, 42)
+layout_mode = 2
+text = "⬅ ทิศตะวันตก"
+
+[node name="ResetButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -50.0
+offset_right = -10.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "ล้างลำดับ"
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 110.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "ปิดหน้าต่าง"
+
+[connection signal="pressed" from="Panel/ButtonGrid/NorthButton" to="." method="press_direction" binds= [0]]
+[connection signal="pressed" from="Panel/ButtonGrid/SouthButton" to="." method="press_direction" binds= [1]]
+[connection signal="pressed" from="Panel/ButtonGrid/EastButton" to="." method="press_direction" binds= [2]]
+[connection signal="pressed" from="Panel/ButtonGrid/WestButton" to="." method="press_direction" binds= [3]]
+[connection signal="pressed" from="Panel/ResetButton" to="." method="reset_sequence"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="close_puzzle"]

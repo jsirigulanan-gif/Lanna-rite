@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c62aqhmgfvpum"]
+
+[ext_resource type="Script" path="res://src/camera/smooth_follow_camera_3d.gd" id="1_cam"]
+
+[node name="SmoothFollowCamera3D" type="Node3D"]
+script = ExtResource("1_cam")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.601815, 0.798636, 0, -0.798636, 0.601815, 0, 0, 0)
+current = true
+fov = 48.0

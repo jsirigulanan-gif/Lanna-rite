@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://cspirit002ai"]
+
+[ext_resource type="Script" path="res://src/entities/enemies/spirit_ai.gd" id="1_spirit"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_spirit"]
+radius = 14.0
+height = 36.0
+
+[node name="SpiritAI" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_spirit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_spirit")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 1
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 18)
+scale = Vector2(1.1, 0.4)
+color = Color(0, 0, 0, 0.25)
+polygon = PackedVector2Array(-10, -5, -7, -8, 0, -9, 7, -8, 10, -5, 10, 5, 7, 8, 0, 9, -7, 8, -10, 5)
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="SpectralAura" type="Polygon2D" parent="Visual"]
+position = Vector2(0, -6)
+scale = Vector2(1.3, 1.3)
+color = Color(0.2, 0.9, 0.55, 0.22)
+polygon = PackedVector2Array(-14, -14, 0, -22, 14, -14, 18, 6, 8, 22, -8, 22, -18, 6)
+
+[node name="Shroud" type="Polygon2D" parent="Visual"]
+color = Color(0.85, 0.88, 0.9, 0.88)
+polygon = PackedVector2Array(-11, -12, 0, -18, 11, -12, 13, 8, 8, 18, 2, 14, -3, 19, -8, 15, -13, 8)
+
+[node name="Hair" type="ColorRect" parent="Visual"]
+offset_left = -10.0
+offset_top = -22.0
+offset_right = 10.0
+offset_bottom = 2.0
+color = Color(0.08, 0.08, 0.1, 0.95)
+
+[node name="Face" type="ColorRect" parent="Visual"]
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 6.0
+offset_bottom = -4.0
+color = Color(0.9, 0.85, 0.85, 0.9)
+
+[node name="EyeLeft" type="ColorRect" parent="Visual"]
+offset_left = -4.0
+offset_top = -11.0
+offset_right = -2.0
+offset_bottom = -9.0
+color = Color(0.95, 0.1, 0.1, 1)
+
+[node name="EyeRight" type="ColorRect" parent="Visual"]
+offset_left = 2.0
+offset_top = -11.0
+offset_right = 4.0
+offset_bottom = -9.0
+color = Color(0.95, 0.1, 0.1, 1)

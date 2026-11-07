@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://caltar006shrine"]
+
+[ext_resource type="Script" path="res://src/environment/altar_shrine.gd" id="1_altar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shrine"]
+radius = 36.0
+
+[sub_resource type="Gradient" id="Gradient_altar"]
+colors = PackedColorArray(1, 0.55, 0.15, 1, 0.8, 0.2, 0.05, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
+gradient = SubResource("Gradient_altar")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="AltarShrine" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_altar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_shrine")
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 16)
+scale = Vector2(2.4, 0.5)
+color = Color(0, 0, 0, 0.45)
+polygon = PackedVector2Array(-10, -5, -7, -8, 0, -9, 7, -8, 10, -5, 10, 5, 7, 8, 0, 9, -7, 8, -10, 5)
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="BaseStone" type="ColorRect" parent="Visual"]
+offset_left = -26.0
+offset_top = -16.0
+offset_right = 26.0
+offset_bottom = 16.0
+color = Color(0.18, 0.17, 0.2, 1)
+
+[node name="MiddleStone" type="ColorRect" parent="Visual"]
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 20.0
+offset_bottom = 12.0
+color = Color(0.28, 0.26, 0.3, 1)
+
+[node name="OfferingBowl" type="ColorRect" parent="Visual"]
+offset_left = -12.0
+offset_top = -20.0
+offset_right = 12.0
+offset_bottom = -13.0
+color = Color(0.75, 0.62, 0.25, 1)
+
+[node name="FlameRect" type="ColorRect" parent="Visual"]
+offset_left = -7.0
+offset_top = -32.0
+offset_right = 7.0
+offset_bottom = -18.0
+color = Color(1, 0.45, 0.1, 0.95)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -25)
+color = Color(1, 0.5, 0.2, 1)
+energy = 1.2
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 1.8
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -54.0
+offset_right = 110.0
+offset_bottom = -34.0
+theme_override_font_sizes/font_size = 11
+text = "[E] ดับไฟพิธีกรรม"
+horizontal_alignment = 1

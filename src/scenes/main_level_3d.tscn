@@ -1,0 +1,514 @@
+[gd_scene format=3 uid="uid://cmainlevel3d002"]
+
+[ext_resource type="Script" path="res://src/scenes/main_level_3d.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://csiblingmgr3d001" path="res://src/entities/player/sibling_manager_3d.tscn" id="2_sibling_mgr"]
+[ext_resource type="PackedScene" uid="uid://cspiritai3d001" path="res://src/entities/enemies/spirit_ai_3d.tscn" id="3_spirit"]
+[ext_resource type="PackedScene" uid="uid://clockeddoor3d001" path="res://src/environment/locked_door_3d.tscn" id="4_door"]
+[ext_resource type="PackedScene" uid="uid://caltarshrine3d001" path="res://src/environment/altar_shrine_3d.tscn" id="5_altar"]
+[ext_resource type="PackedScene" uid="uid://chiding3d001" path="res://src/environment/hiding_spot_3d.tscn" id="6_hiding"]
+[ext_resource type="PackedScene" uid="uid://csaveshrine3d001" path="res://src/environment/save_shrine_3d.tscn" id="7_saveshrine"]
+[ext_resource type="PackedScene" uid="uid://cloredoc3d001" path="res://src/environment/lore_document_3d.tscn" id="8_loredoc"]
+[ext_resource type="PackedScene" uid="uid://cworlditem3d001" path="res://src/items/world_item_3d.tscn" id="9_world_item"]
+[ext_resource type="Resource" uid="uid://coilflask001" path="res://src/items/oil_flask.tres" id="10_oil"]
+[ext_resource type="Resource" uid="uid://cmedicine002" path="res://src/items/herbal_medicine.tres" id="11_med"]
+[ext_resource type="PackedScene" uid="uid://csmoothcam3d001" path="res://src/camera/smooth_follow_camera_3d.tscn" id="12_cam"]
+[ext_resource type="Script" path="res://src/core/game_manager.gd" id="13_gm"]
+[ext_resource type="PackedScene" uid="uid://7wjuapfj5336" path="res://src/ui/inventory/inventory_grid.tscn" id="14_inv"]
+[ext_resource type="PackedScene" uid="uid://ctob1rv6gkqwk" path="res://src/puzzles/tung_puzzle.tscn" id="15_puzzle"]
+[ext_resource type="PackedScene" uid="uid://dp4yo3hcg7uev" path="res://src/ui/screens/game_over_screen.tscn" id="16_gameover"]
+[ext_resource type="PackedScene" uid="uid://bfvgdm6qv1pfh" path="res://src/ui/screens/victory_screen.tscn" id="17_victory"]
+[ext_resource type="PackedScene" path="res://src/ui/screens/document_reader.tscn" id="18_docreader"]
+[ext_resource type="PackedScene" path="res://src/ui/screens/pause_menu.tscn" id="19_pause"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/status_hud.tscn" id="20_hud"]
+[ext_resource type="PackedScene" path="res://src/ui/screens/map_screen.tscn" id="21_map"]
+[ext_resource type="Script" path="res://src/audio/audio_manager.gd" id="22_audio"]
+[ext_resource type="Shader" uid="uid://v5m5h6msl0t6" path="res://src/shaders/cinematic_horror.gdshader" id="23_shader"]
+[ext_resource type="PackedScene" uid="uid://cschooldesk3d001" path="res://src/environment/props/school_desk_3d.tscn" id="24_desk"]
+[ext_resource type="PackedScene" uid="uid://clannatung3d001" path="res://src/environment/props/lanna_tung_3d.tscn" id="25_tung"]
+[ext_resource type="PackedScene" uid="uid://cwinmoonlight3d001" path="res://src/environment/props/window_moonlight_3d.tscn" id="26_window"]
+[ext_resource type="PackedScene" uid="uid://cmistparticles3d001" path="res://src/environment/props/mist_particles_3d.tscn" id="27_mist"]
+
+[sub_resource type="Environment" id="Environment_horror"]
+background_mode = 1
+background_color = Color(0.015, 0.02, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.04, 0.05, 0.08, 1)
+ambient_light_energy = 0.9
+tonemap_mode = 3
+glow_enabled = true
+glow_intensity = 0.5
+glow_bloom = 0.15
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+volumetric_fog_albedo = Color(0.12, 0.15, 0.22, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor_wood"]
+albedo_color = Color(0.24, 0.15, 0.09, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor_stone"]
+albedo_color = Color(0.12, 0.14, 0.13, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wall_teak"]
+albedo_color = Color(0.18, 0.11, 0.06, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_courtyard_fence"]
+albedo_color = Color(0.15, 0.13, 0.10, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_foyer_floor"]
+material = SubResource("StandardMaterial3D_floor_wood")
+size = Vector3(8, 0.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_foyer_floor"]
+size = Vector3(8, 0.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hall_floor"]
+material = SubResource("StandardMaterial3D_floor_wood")
+size = Vector3(14, 0.2, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hall_floor"]
+size = Vector3(14, 0.2, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_classroom_floor"]
+material = SubResource("StandardMaterial3D_floor_wood")
+size = Vector3(10, 0.2, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_classroom_floor"]
+size = Vector3(10, 0.2, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_courtyard_floor"]
+material = SubResource("StandardMaterial3D_floor_stone")
+size = Vector3(22, 0.2, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_courtyard_floor"]
+size = Vector3(22, 0.2, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_short"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(0.4, 3.6, 8.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_short"]
+size = Vector3(0.4, 3.6, 8.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_foyer_south"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(8.0, 3.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_foyer_south"]
+size = Vector3(8.0, 3.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_hall_south"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(3.6, 3.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_hall_south"]
+size = Vector3(3.6, 3.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_connector"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(0.4, 3.6, 4.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_connector"]
+size = Vector3(0.4, 3.6, 4.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safety_catcher"]
+size = Vector3(70.0, 1.0, 70.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_long_1"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(21.4, 3.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_long_1"]
+size = Vector3(21.4, 3.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_classroom_wall_z"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(10.4, 3.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_classroom_wall_z"]
+size = Vector3(10.4, 3.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_classroom_wall_x"]
+material = SubResource("StandardMaterial3D_wall_teak")
+size = Vector3(0.4, 3.6, 7.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_classroom_wall_x"]
+size = Vector3(0.4, 3.6, 7.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fence_long"]
+material = SubResource("StandardMaterial3D_courtyard_fence")
+size = Vector3(22.0, 3.2, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence_long"]
+size = Vector3(22.0, 3.2, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fence_end"]
+material = SubResource("StandardMaterial3D_courtyard_fence")
+size = Vector3(0.4, 3.2, 16.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence_end"]
+size = Vector3(0.4, 3.2, 16.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_escape"]
+size = Vector3(3.0, 3.5, 4.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_foyer"]
+size = Vector3(9.0, 6.0, 9.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_classroom"]
+size = Vector3(11.0, 6.0, 8.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_hallway"]
+size = Vector3(9.0, 6.0, 8.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_door"]
+size = Vector3(8.0, 6.0, 8.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_courtyard_entry"]
+size = Vector3(9.0, 6.0, 16.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_altar"]
+size = Vector3(10.0, 6.0, 16.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam_escape"]
+size = Vector3(9.0, 6.0, 16.0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cinematic"]
+shader = ExtResource("23_shader")
+shader_parameter/vignette_intensity = 0.42
+shader_parameter/vignette_opacity = 0.8
+shader_parameter/grain_amount = 0.03
+shader_parameter/tint_color = Color(0.92, 0.96, 1.05, 1)
+
+[node name="MainLevel3D" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_horror")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 20, 12, 5)
+light_color = Color(0.35, 0.45, 0.7, 1)
+light_energy = 0.4
+shadow_enabled = true
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="FoyerFloor" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, -0.1, 0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/FoyerFloor"]
+mesh = SubResource("BoxMesh_foyer_floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/FoyerFloor"]
+shape = SubResource("BoxShape3D_foyer_floor")
+
+[node name="HallwayFloor" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, -0.1, 0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/HallwayFloor"]
+mesh = SubResource("BoxMesh_hall_floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/HallwayFloor"]
+shape = SubResource("BoxShape3D_hall_floor")
+
+[node name="ClassroomFloor" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -0.1, 7.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/ClassroomFloor"]
+mesh = SubResource("BoxMesh_classroom_floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ClassroomFloor"]
+shape = SubResource("BoxShape3D_classroom_floor")
+
+[node name="CourtyardFloor" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0, -0.1, 0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/CourtyardFloor"]
+mesh = SubResource("BoxMesh_courtyard_floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CourtyardFloor"]
+shape = SubResource("BoxShape3D_courtyard_floor")
+
+[node name="WallLeft" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.8, 0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallLeft"]
+mesh = SubResource("BoxMesh_wall_short")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallLeft"]
+shape = SubResource("BoxShape3D_wall_short")
+
+[node name="WallTopNorth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 1.8, -3.7)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallTopNorth"]
+mesh = SubResource("BoxMesh_wall_long_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallTopNorth"]
+shape = SubResource("BoxShape3D_wall_long_1")
+
+[node name="WallFoyerSouth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.8, 4.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallFoyerSouth"]
+mesh = SubResource("BoxMesh_wall_foyer_south")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallFoyerSouth"]
+shape = SubResource("BoxShape3D_wall_foyer_south")
+
+[node name="WallHallwaySouth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3, 1.8, 3.5)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallHallwaySouth"]
+mesh = SubResource("BoxMesh_wall_hall_south")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallHallwaySouth"]
+shape = SubResource("BoxShape3D_wall_hall_south")
+
+[node name="WallCourtyardNorthConnector" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0, 1.8, -5.8)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallCourtyardNorthConnector"]
+mesh = SubResource("BoxMesh_wall_connector")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallCourtyardNorthConnector"]
+shape = SubResource("BoxShape3D_wall_connector")
+
+[node name="WallCourtyardSouthConnector" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0, 1.8, 5.8)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallCourtyardSouthConnector"]
+mesh = SubResource("BoxMesh_wall_connector")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallCourtyardSouthConnector"]
+shape = SubResource("BoxShape3D_wall_connector")
+
+[node name="SafetyCatcherFloor" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0, -0.6, 0.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/SafetyCatcherFloor"]
+shape = SubResource("BoxShape3D_safety_catcher")
+
+[node name="WallClassroomSouth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 1.8, 10.5)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallClassroomSouth"]
+mesh = SubResource("BoxMesh_classroom_wall_z")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallClassroomSouth"]
+shape = SubResource("BoxShape3D_classroom_wall_z")
+
+[node name="WallClassroomWest" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.8, 7.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallClassroomWest"]
+mesh = SubResource("BoxMesh_classroom_wall_x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallClassroomWest"]
+shape = SubResource("BoxShape3D_classroom_wall_x")
+
+[node name="WallClassroomEast" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 1.8, 7.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/WallClassroomEast"]
+mesh = SubResource("BoxMesh_classroom_wall_x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WallClassroomEast"]
+shape = SubResource("BoxShape3D_classroom_wall_x")
+
+[node name="CourtyardFenceNorth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0, 1.6, -8.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/CourtyardFenceNorth"]
+mesh = SubResource("BoxMesh_fence_long")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CourtyardFenceNorth"]
+shape = SubResource("BoxShape3D_fence_long")
+
+[node name="CourtyardFenceSouth" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0, 1.6, 8.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/CourtyardFenceSouth"]
+mesh = SubResource("BoxMesh_fence_long")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CourtyardFenceSouth"]
+shape = SubResource("BoxShape3D_fence_long")
+
+[node name="CourtyardFenceEast" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.0, 1.6, 0.0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/CourtyardFenceEast"]
+mesh = SubResource("BoxMesh_fence_end")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CourtyardFenceEast"]
+shape = SubResource("BoxShape3D_fence_end")
+
+[node name="LockedDoor3D" parent="Environment" instance=ExtResource("4_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0, 0, 0)
+
+[node name="AltarShrine3D" parent="Environment" instance=ExtResource("5_altar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0, 0, 0)
+
+[node name="SaveShrine3D" parent="Environment" instance=ExtResource("7_saveshrine")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0, 0, -2.5)
+
+[node name="HidingSpot3D" parent="Environment" instance=ExtResource("6_hiding")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0, 0, 8.5)
+
+[node name="OilItem" parent="Environment" instance=ExtResource("9_world_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 5.5)
+item_data = ExtResource("10_oil")
+
+[node name="MedicineItem" parent="Environment" instance=ExtResource("9_world_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0, 0, -2.0)
+item_data = ExtResource("11_med")
+
+[node name="LoreDoc" parent="Environment" instance=ExtResource("8_loredoc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 7.5)
+document_title = "บันทึกครูเวร (14 พ.ย.)"
+document_content = "วันที่ 14 พฤศจิกายน... หลังจากเสียงระฆังเลิกเรียน หมอกควันประหลาดเริ่มลอยลงมาจากยอดดอย ผู้ใหญ่ในหมู่บ้านต่างพากันปิดประตูเรือนเงียบกริบ ฉันได้ยินเสียงสวดมนต์ภาษากลางเมืองล้านนาโบราณแว่วมาจากลานศาลผีปู่ย่า... วิญญาณบรรพบุรุษกำลังตื่นขึ้นมาทวงถามบางสิ่ง..."
+
+[node name="EscapeGate" type="Area3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/EscapeGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = SubResource("BoxShape3D_escape")
+
+[node name="PromptLabel3D" type="Label3D" parent="Environment/EscapeGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+billboard = 1
+text = "ซุ้มประตูทางออกหมู่บ้าน"
+font_size = 28
+outline_size = 8
+
+[node name="SchoolDesk1" parent="Environment" instance=ExtResource("24_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 5.2)
+
+[node name="SchoolDesk2" parent="Environment" instance=ExtResource("24_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 0, 5.2)
+
+[node name="SchoolDesk3" parent="Environment" instance=ExtResource("24_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0, 0, 5.2)
+
+[node name="SchoolDesk4" parent="Environment" instance=ExtResource("24_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 7.2)
+
+[node name="SchoolDesk5" parent="Environment" instance=ExtResource("24_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 0, 7.2)
+
+[node name="TungFoyer" parent="Environment" instance=ExtResource("25_tung")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2.8, -3.2)
+phase_offset = 0.5
+
+[node name="TungHallway" parent="Environment" instance=ExtResource("25_tung")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0, 2.8, -3.2)
+phase_offset = 1.2
+
+[node name="TungTalisman" parent="Environment" instance=ExtResource("25_tung")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 2.8, -3.2)
+phase_offset = 2.0
+
+[node name="TungCourtyard1" parent="Environment" instance=ExtResource("25_tung")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 2.8, 4.5)
+phase_offset = 2.8
+
+[node name="TungCourtyard2" parent="Environment" instance=ExtResource("25_tung")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.0, 2.8, -4.5)
+phase_offset = 3.5
+
+[node name="MoonlightWindow1" parent="Environment" instance=ExtResource("26_window")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.0, 1.8, -3.65)
+
+[node name="MoonlightWindow2" parent="Environment" instance=ExtResource("26_window")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1.8, -3.65)
+
+[node name="MoonlightWindow3" parent="Environment" instance=ExtResource("26_window")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 1.8, -3.65)
+
+[node name="SchoolMist" parent="Environment" instance=ExtResource("27_mist")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0, 0.2, 0.0)
+
+[node name="CourtyardMist" parent="Environment" instance=ExtResource("27_mist")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0, 0.2, 0.0)
+
+[node name="SmoothFollowCamera3D" parent="." instance=ExtResource("12_cam")]
+
+[node name="SiblingManager3D" parent="." instance=ExtResource("2_sibling_mgr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="SpiritAI3D" parent="." instance=ExtResource("3_spirit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0, 0, 2.0)
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("13_gm")
+
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("22_audio")
+
+[node name="PostProcessLayer" type="CanvasLayer" parent="."]
+
+[node name="CinematicColorRect" type="ColorRect" parent="PostProcessLayer"]
+material = SubResource("ShaderMaterial_cinematic")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StatusHUD" parent="." instance=ExtResource("20_hud")]
+
+[node name="InventoryGrid" parent="." instance=ExtResource("14_inv")]
+
+[node name="TungPuzzle" parent="." instance=ExtResource("15_puzzle")]
+
+[node name="DocumentReader" parent="." instance=ExtResource("18_docreader")]
+
+[node name="MapScreen" parent="." instance=ExtResource("21_map")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("19_pause")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("16_gameover")]
+
+[node name="VictoryScreen" parent="." instance=ExtResource("17_victory")]

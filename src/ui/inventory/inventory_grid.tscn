@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=3 uid="uid://cinventory003grid"]
+
+[ext_resource type="Script" path="res://src/ui/inventory/inventory_grid.gd" id="1_inv_grid"]
+
+[node name="InventoryGrid" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_inv_grid")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "กระเป๋าสัมภาระ (8 ช่อง)"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -50.0
+offset_right = 130.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="ActionMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -60.0
+offset_right = 210.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ActionMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UseButton" type="Button" parent="ActionMenu/VBoxContainer"]
+layout_mode = 2
+text = "ใช้ (Use)"
+
+[node name="ExamineButton" type="Button" parent="ActionMenu/VBoxContainer"]
+layout_mode = 2
+text = "ตรวจดู"
+
+[node name="DropButton" type="Button" parent="ActionMenu/VBoxContainer"]
+layout_mode = 2
+text = "ทิ้ง (Drop)"
+
+[node name="ExaminePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -140.0
+offset_right = 180.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="ExaminePanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "ชื่อไอเทม"
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="ExaminePanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -50.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "รายละเอียดไอเทมและข้อมูลปูมหลัง..."
+autowrap_mode = 2
+
+[node name="CloseButton" type="Button" parent="ExaminePanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -45.0
+offset_right = 40.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "ปิด"
+
+[node name="NotificationLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 40.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "ช่องสัมภาระเต็มแล้ว!"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="ActionMenu/VBoxContainer/UseButton" to="." method="use_selected_item"]
+[connection signal="pressed" from="ActionMenu/VBoxContainer/ExamineButton" to="." method="examine_selected_item"]
+[connection signal="pressed" from="ActionMenu/VBoxContainer/DropButton" to="." method="drop_selected_item"]
+[connection signal="pressed" from="ExaminePanel/CloseButton" to="ExaminePanel" method="hide"]

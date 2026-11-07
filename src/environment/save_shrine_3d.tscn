@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://csaveshrine3d001"]
+
+[ext_resource type="Script" path="res://src/environment/save_shrine_3d.gd" id="1_shrine"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trigger"]
+radius = 1.6
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gold_wood"]
+albedo_color = Color(0.42, 0.28, 0.12, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_house"]
+material = SubResource("StandardMaterial3D_gold_wood")
+size = Vector3(0.6, 0.7, 0.6)
+
+[sub_resource type="PrismMesh" id="PrismMesh_roof"]
+material = SubResource("StandardMaterial3D_gold_wood")
+size = Vector3(0.8, 0.4, 0.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pole"]
+material = SubResource("StandardMaterial3D_gold_wood")
+top_radius = 0.08
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_candle"]
+albedo_color = Color(1, 0.75, 0.3, 1)
+emission_enabled = true
+emission = Color(1, 0.6, 0.2, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_candle"]
+material = SubResource("StandardMaterial3D_candle")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.15
+
+[node name="SaveShrine3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_shrine")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_trigger")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="PoleMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_pole")
+
+[node name="HouseMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+mesh = SubResource("BoxMesh_house")
+
+[node name="RoofMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = SubResource("PrismMesh_roof")
+
+[node name="CandleMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0.35)
+mesh = SubResource("CylinderMesh_candle")
+
+[node name="CandleLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.4)
+light_color = Color(1, 0.72, 0.35, 1)
+light_energy = 1.4
+omni_range = 3.5
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+billboard = 1
+text = "[E] เซฟเกม"
+font_size = 28
+outline_size = 8

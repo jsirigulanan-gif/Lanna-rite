@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cfixedcam3d001"]
+
+[ext_resource type="Script" path="res://src/camera/fixed_camera_zone_3d.gd" id="1_cam"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trigger"]
+size = Vector3(6, 4, 6)
+
+[node name="FixedCameraZone3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_trigger")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 5)
+fov = 65.0

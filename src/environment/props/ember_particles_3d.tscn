@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://blxutsd1u8fw7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ember"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.6, 0.2, 0.9)
+emission_enabled = true
+emission = Color(1, 0.45, 0.1, 1)
+emission_energy_multiplier = 4.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_ember"]
+material = SubResource("StandardMaterial3D_ember")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ember"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 0.8
+initial_velocity_max = 1.8
+gravity = Vector3(0, 0.4, 0)
+scale_min = 0.6
+scale_max = 1.4
+color = Color(1, 0.65, 0.2, 1)
+
+[node name="EmberParticles3D" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+amount = 20
+lifetime = 2.2
+preprocess = 1.0
+process_material = SubResource("ParticleProcessMaterial_ember")
+draw_pass_1 = SubResource("QuadMesh_ember")

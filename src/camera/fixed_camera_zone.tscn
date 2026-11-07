@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfixed001cam"]
+
+[ext_resource type="Script" path="res://src/camera/fixed_camera_zone.gd" id="1_cam_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(200, 200)
+
+[node name="FixedCameraZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cam_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = false
