@@ -92,4 +92,8 @@ func _on_lantern_fuel_changed(curr: float, max_fuel: float) -> void:
 		lantern_fuel_bar.value = curr
 
 	if lantern_pct_label != null:
-		lantern_pct_label.text = "น้ำมัน: " + str(int(pct * 100)) + "%"
+		var has_lantern: bool = _current_active_sibling != null and _current_active_sibling.get_node_or_null("LanternLight3D") != null
+		if has_lantern:
+			lantern_pct_label.text = "น้ำมัน: " + str(int(pct * 100)) + "% [RMB/F รวมแสง]"
+		else:
+			lantern_pct_label.text = "น้ำมัน: " + str(int(pct * 100)) + "%"

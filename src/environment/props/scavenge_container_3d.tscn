@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://src/environment/props/scavenge_container_3d.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_static"]
+size = Vector3(1.3, 0.85, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.26, 0.16, 0.09, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_desk"]
+material = SubResource("StandardMaterial3D_wood")
+size = Vector3(1.3, 0.8, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drawer"]
+albedo_color = Color(0.32, 0.2, 0.11, 1)
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_drawer"]
+material = SubResource("StandardMaterial3D_drawer")
+size = Vector3(0.55, 0.22, 0.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_knob"]
+material = SubResource("StandardMaterial3D_wood")
+size = Vector3(0.06, 0.06, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(2.0, 1.2, 2.0)
+
+[node name="ScavengeContainer3D" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+collision_layer = 1
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_static")
+
+[node name="DeskMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_desk")
+
+[node name="DrawerMesh" type="MeshInstance3D" parent="DeskMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, 0.12)
+mesh = SubResource("BoxMesh_drawer")
+
+[node name="Knob" type="MeshInstance3D" parent="DeskMesh/DrawerMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.24)
+mesh = SubResource("BoxMesh_knob")
+
+[node name="InteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_interact")
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+visible = false
+billboard = 1
+text = "[E] ค้นหาของในลิ้นชักโต๊ะ"
+font_size = 24
+outline_size = 6

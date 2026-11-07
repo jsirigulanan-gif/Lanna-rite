@@ -27,6 +27,11 @@
 [ext_resource type="PackedScene" uid="uid://clannatung3d001" path="res://src/environment/props/lanna_tung_3d.tscn" id="25_tung"]
 [ext_resource type="PackedScene" uid="uid://cwinmoonlight3d001" path="res://src/environment/props/window_moonlight_3d.tscn" id="26_window"]
 [ext_resource type="PackedScene" uid="uid://cmistparticles3d001" path="res://src/environment/props/mist_particles_3d.tscn" id="27_mist"]
+[ext_resource type="PackedScene" path="res://src/environment/props/sai_sin_ward_3d.tscn" id="28_saisin_ward"]
+[ext_resource type="Resource" path="res://src/items/saisin_cord.tres" id="29_saisin_cord"]
+[ext_resource type="PackedScene" path="res://src/environment/props/pushable_wardrobe_3d.tscn" id="30_wardrobe"]
+[ext_resource type="PackedScene" path="res://src/environment/props/crawl_vent_3d.tscn" id="31_vent"]
+[ext_resource type="PackedScene" path="res://src/environment/props/scavenge_container_3d.tscn" id="32_container"]
 
 [sub_resource type="Environment" id="Environment_horror"]
 background_mode = 1
@@ -400,6 +405,32 @@ item_data = ExtResource("10_oil")
 [node name="MedicineItem" parent="Environment" instance=ExtResource("9_world_item")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.0, 0, -2.0)
 item_data = ExtResource("11_med")
+
+[node name="SaiSinWardDoorway" parent="Environment" instance=ExtResource("28_saisin_ward")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 3.5)
+
+[node name="SaiSinWardCourtyard" parent="Environment" instance=ExtResource("28_saisin_ward")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 19.8, 0, 0)
+
+[node name="SaiSinCordItem" parent="Environment" instance=ExtResource("9_world_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 5.5)
+item_data = ExtResource("29_saisin_cord")
+
+[node name="PushableWardrobe" parent="Environment" instance=ExtResource("30_wardrobe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 0)
+push_offset = Vector3(0, 0, 1.8)
+
+[node name="CrawlVent" parent="Environment" instance=ExtResource("31_vent")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 7.6, 0, 8.5)
+exit_offset = Vector3(3.0, 0, 0)
+
+[node name="ScavengeDesk1" parent="Environment" instance=ExtResource("32_container")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0, 0, 4.2)
+possible_items = [ExtResource("10_oil"), ExtResource("29_saisin_cord")]
+
+[node name="ScavengeDesk2" parent="Environment" instance=ExtResource("32_container")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0, 0, 9.2)
+possible_items = [ExtResource("11_med"), ExtResource("10_oil")]
 
 [node name="LoreDoc" parent="Environment" instance=ExtResource("8_loredoc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 7.5)

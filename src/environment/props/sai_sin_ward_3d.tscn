@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://src/environment/props/sai_sin_ward_3d.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(2.6, 2.2, 2.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_repel"]
+size = Vector3(2.2, 2.2, 1.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_barrier"]
+size = Vector3(2.2, 2.5, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_peg"]
+albedo_color = Color(0.35, 0.22, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_peg"]
+material = SubResource("StandardMaterial3D_peg")
+top_radius = 0.05
+bottom_radius = 0.06
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cord"]
+albedo_color = Color(0.96, 0.98, 1, 1)
+emission_enabled = true
+emission = Color(0.9, 0.95, 1, 1)
+emission_energy_multiplier = 2.0
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_cord"]
+material = SubResource("StandardMaterial3D_cord")
+size = Vector3(2.2, 0.03, 0.03)
+
+[node name="SaiSinWard3D" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="InteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_interact")
+
+[node name="RepelArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RepelArea"]
+shape = SubResource("BoxShape3D_repel")
+
+[node name="StaticBarrier" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBarrier"]
+shape = SubResource("BoxShape3D_barrier")
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+visible = false
+billboard = 1
+text = "[E] ขึงสายสิญจน์ป้องกันผี"
+font_size = 26
+outline_size = 6
+
+[node name="HolyLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
+light_color = Color(0.9, 0.95, 1, 1)
+light_energy = 1.4
+omni_range = 4.0
+
+[node name="ThreadsVisual" type="Node3D" parent="."]
+visible = false
+
+[node name="PostLeft" type="MeshInstance3D" parent="ThreadsVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1, 0)
+mesh = SubResource("CylinderMesh_peg")
+
+[node name="PostRight" type="MeshInstance3D" parent="ThreadsVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1, 0)
+mesh = SubResource("CylinderMesh_peg")
+
+[node name="CordLower" type="MeshInstance3D" parent="ThreadsVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("BoxMesh_cord")
+
+[node name="CordMiddle" type="MeshInstance3D" parent="ThreadsVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_cord")
+
+[node name="CordUpper" type="MeshInstance3D" parent="ThreadsVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+mesh = SubResource("BoxMesh_cord")

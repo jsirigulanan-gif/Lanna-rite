@@ -85,6 +85,15 @@ func has_item(item_id: String) -> bool:
 			return true
 	return false
 
+## Removes the first occurrence of an item with the given ID.
+func remove_item_by_id(item_id: String) -> bool:
+	for i in range(max_slots):
+		if slots[i] != null and slots[i].id == item_id:
+			slots[i] = null
+			_refresh_ui()
+			return true
+	return false
+
 ## Selects a slot index and displays the action popup menu.
 func select_slot(index: int) -> void:
 	if index < 0 or index >= max_slots or slots[index] == null:

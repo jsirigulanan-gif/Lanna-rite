@@ -180,3 +180,52 @@ func _play_chime_sound(freq1: float, freq2: float, duration: float) -> void:
 ## Plays wooden creak sound for door and locker.
 func play_creak_sound() -> void:
 	_play_pulse_sound(120.0, 0.35, 0.45)
+
+## Plays eerie ghost screech when stunned by holy lantern light.
+func play_ghost_screech() -> void:
+	var duration: float = 0.65
+	var sample_rate: int = 22050
+	var num_samples: int = int(sample_rate * duration)
+	var byte_array := PackedByteArray()
+	byte_array.resize(num_samples * 2)
+
+	for i in range(num_samples):
+		var t: float = float(i) / float(sample_rate)
+		var envelope: float = (1.0 - (t / duration)) * 0.8
+		# Frequency drop howl with vibrato
+		var freq: float = 780.0 - (t * 380.0) + sin(t * 45.0) * 60.0
+		var noise: float = (randf() - 0.5) * 0.3
+		var wave: float = (sin(t * freq * TAU) + noise) * envelope * 0.4
+		var sample_val: int = int(clampf(wave, -1.0, 1.0) * 32767.0)
+		byte_array.encode_s16(i * 2, sample_val)
+
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sample_rate
+	stream.data = byte_array
+
+	_player_sfx.stream = stream
+	_player_sfx.play()
+
+## Plays warm flare/buzz sound when focusing lantern beam.
+func play_focus_flare() -> void:
+	var duration: float = 0.3
+	var sample_rate: int = 22050
+	var num_samples: int = int(sample_rate * duration)
+	var byte_array := PackedByteArray()
+	byte_array.resize(num_samples * 2)
+
+	for i in range(num_samples):
+		var t: float = float(i) / float(sample_rate)
+		var envelope: float = sin(t / duration * PI) * 0.5
+		var wave: float = (sin(t * 140.0 * TAU) + sin(t * 280.0 * TAU) * 0.5) * envelope
+		var sample_val: int = int(clampf(wave, -1.0, 1.0) * 32767.0)
+		byte_array.encode_s16(i * 2, sample_val)
+
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sample_rate
+	stream.data = byte_array
+
+	_player_sfx.stream = stream
+	_player_sfx.play()

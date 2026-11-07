@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/items/item_data.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = "saisin_cord"
+item_name = "ด้ายสายสิญจน์อาคม"
+description = "ด้ายสายสิญจน์มงคลปลุกเสก ใช้ขึงปิดกั้นธรณีประตูเพื่อป้องกันและสกัดกั้นภูตผีไม่ให้ย่างกรายผ่านเข้ามา"
+item_type = 0
+heal_amount = 0
+fuel_amount = 0.0
+icon_color = Color(0.95, 0.95, 1, 1)
+max_stack = 5

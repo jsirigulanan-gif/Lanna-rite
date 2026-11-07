@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/environment/props/crawl_vent_3d.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vent"]
+albedo_color = Color(0.22, 0.24, 0.28, 1)
+metallic = 0.6
+roughness = 0.55
+
+[sub_resource type="BoxMesh" id="BoxMesh_frame"]
+material = SubResource("StandardMaterial3D_vent")
+size = Vector3(0.9, 0.7, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(1.6, 1.2, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_latch"]
+size = Vector3(1.8, 1.8, 1.8)
+
+[node name="CrawlVent3D" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="VentMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_frame")
+
+[node name="InteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_interact")
+
+[node name="PromptLabel3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
+billboard = 1
+text = "[E] มุดลอดช่องแคบ"
+font_size = 24
+outline_size = 6
+
+[node name="ExitMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
+
+[node name="InteriorLatchArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.2)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteriorLatchArea"]
+shape = SubResource("BoxShape3D_latch")
+
+[node name="LatchPromptLabel3D" type="Label3D" parent="InteriorLatchArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+visible = false
+billboard = 1
+text = "[E] ปลดสลักกลอนประตูจากด้านใน"
+font_size = 24
+outline_size = 6

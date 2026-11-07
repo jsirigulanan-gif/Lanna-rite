@@ -68,9 +68,16 @@ func _physics_process(delta: float) -> void:
 	if is_stunned:
 		_stun_timer -= delta
 		velocity = velocity.move_toward(Vector3.ZERO, 10.0 * delta)
+		# Shudder & recoil visual effect while blinded by holy light
+		if visual != null:
+			visual.position.x = sin(_stun_timer * 45.0) * 0.1
+			visual.rotation.z = sin(_stun_timer * 35.0) * 0.15
 		move_and_slide()
 		if _stun_timer <= 0.0:
 			is_stunned = false
+			if visual != null:
+				visual.position.x = 0.0
+				visual.rotation.z = 0.0
 			_switch_state(State.INVESTIGATE)
 		return
 
@@ -267,6 +274,12 @@ func _switch_state(new_state: State) -> void:
 		audio_mgr.set_chase_state(current_state == State.CHASE)
 
 func stun(duration: float = 3.0) -> void:
+	var was_already_stunned: bool = is_stunned
 	is_stunned = true
-	_stun_timer = duration
+	_stun_timer = maxf(_stun_timer, duration)
 	current_target = null
+
+	if not was_already_stunned:
+		var audio_mgr = get_node_or_null("/root/AudioManager")
+		if audio_mgr != null and audio_mgr.has_method("play_ghost_screech"):
+			audio_mgr.play_ghost_screech()
